@@ -3,33 +3,21 @@ n = int(input())
 d = {}
 for i in range(1,n+1):
     during_days, payment = map(int, input().split())
-    if n >= i + during_days -1:
-        d[i] = [during_days, payment]
-    else:
-        d[i] = [-1,0]
-        
-sum = 0
-ans = 0
-arr = [0 for i in range(n+1)]
+    d[i] = [during_days, payment]
 
-def backTracking (idx):
-    global ans, sum
-    if ans < sum:
-        ans = sum
-    for i in range(idx,n+1): 
-        if arr[i] or d[i][0] == -1:
-            continue
-        during_days = d[i][0]
-        
-        for j in range(during_days):
-            arr[i+j] = 1
-        sum += d[i][1]
-        backTracking(i+1)
+dp = [0 for i in range(n+2)]    # 0 ~ n+1
 
-        for j in range(during_days):
-            arr[i+j] = 0
-        sum -= d[i][1]
-        backTracking(i+1)
+max_num = 0
 
-backTracking(1)
-print(ans)
+for i in range(n, 0, -1):
+    during_days, payment = d[i]
+
+    if during_days + i > n+1:
+        dp[i] = dp[i+1]
+        continue
+    
+    dp[i] = max(dp[i+1], dp[i+during_days]+payment)
+    if dp[i] > max_num:
+        max_num = dp[i]
+
+print(max_num)
