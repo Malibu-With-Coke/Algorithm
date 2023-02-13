@@ -2,7 +2,6 @@ n, k = map(int, input().split())
 
 goods = [tuple(map(int, input().split())) for _ in range(n)]
 
-goods.sort(key = lambda x: (x[1]/x[0], x[0]))
 dp = [[0 for _ in range(k+1)] for _ in range(n+1)]
 
 for i in range(1, n+1):
