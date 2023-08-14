@@ -11,8 +11,12 @@ for _ in range(n):
     s, e = map(int, input().split())
     if start > s: start = s
     if end < e: end = e
-    for i in range(s, e):
-        arr[i] += 1
+    arr[s] += 1
+    arr[e] -= 1
+
+for i in range(start+1, end+1):
+    arr[i] += arr[i-1]
+
 
 sum_arr = 0
 start_idx = 0
