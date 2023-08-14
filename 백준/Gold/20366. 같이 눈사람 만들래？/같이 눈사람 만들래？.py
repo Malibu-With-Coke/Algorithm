@@ -13,12 +13,13 @@ for a_left in range(n-3):
         a_sum = arr[a_left] + arr[a_right]
 
         while b_left < b_right:
-            if ans > abs(a_sum - (arr[b_left] + arr[b_right])):
-                ans = abs(a_sum - (arr[b_left] + arr[b_right]))
+            b_sum = arr[b_left] + arr[b_right]
+            if ans > abs(a_sum - b_sum):
+                ans = abs(a_sum - b_sum)
 
-            if a_sum > arr[b_left] + arr[b_right]:
+            if a_sum > b_sum:
                 b_left += 1
-            elif a_sum < arr[b_left] + arr[b_right]:
+            elif a_sum < b_sum:
                 b_right -= 1
             else:
                 ans = 0
