@@ -12,13 +12,14 @@ def alpha_to_idx (alphabet):
     return ord(alphabet) - ord('a')
 
 for idx, chr in enumerate(string):
-    alp[alpha_to_idx(chr)][idx] += 1
+    alp[ord(chr) - 97][idx] += 1
 
     for i in range(26):
         alp[i][idx] += alp[i][idx-1]
+        
 for i in range(n):
     c, s, e = li[i]
-    ci = alpha_to_idx(c)
+    c = ord(c) - 97
     s = int(s)
     e = int(e)
-    print(alp[ci][e] - alp[ci][s - 1])
+    print(alp[c][e] - alp[c][s - 1])
