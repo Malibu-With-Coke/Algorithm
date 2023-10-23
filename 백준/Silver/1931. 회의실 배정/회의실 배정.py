@@ -1,17 +1,16 @@
-num = int(input())
+import sys
+input = sys.stdin.readline
 
-data = []
-answer = 0
-end_time = 0
-for i in range(num):
-    data.append(list(map(int, input().split())))
+n = int(input())
 
-data.sort(key=lambda x: (x[1], x[0]))
+classes = [list(map(int, input().split())) for _ in range(n)]
+classes.sort(key=lambda x : (x[1], x[0]))
 
-for i in range(num):
-    if end_time <= data[i][0]:
-        end_time = data[i][1]
-        answer += 1
+prev_end = 0
+count_class = 0
+for i in range(n):
+    if prev_end <= classes[i][0]:
+        prev_end = classes[i][1]
+        count_class += 1
 
-
-print(answer)
+print(count_class)
