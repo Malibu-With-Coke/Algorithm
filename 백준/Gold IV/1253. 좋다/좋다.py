@@ -1,27 +1,31 @@
 import sys
+
 input = sys.stdin.readline
 
 n = int(input())
 arr = list(map(int, input().split()))
 arr.sort()
 
-cnt = 0
-for i in range(n):
-    goal = arr[i]
-    start = 0
-    end = len(arr)-1
+ans = 0
+for idx in range(n):
+    tar = arr[idx]
+    start, end = 0, n - 1
+
     while start < end:
-        if arr[start] + arr[end] == goal:
-            if start == i:
+
+        sum_ = arr[start] + arr[end]
+
+        if tar == sum_:
+            if start == idx:
                 start += 1
-            elif end == i:
+            elif end == idx:
                 end -= 1
             else:
-                cnt += 1
+                ans += 1
                 break
-        elif arr[start] + arr[end] > goal:
-            end -= 1
-        elif arr[start] + arr[end] < goal:
-            start += 1
 
-print(cnt)
+        elif tar > sum_:
+            start += 1
+        else:
+            end -= 1
+print(ans)
