@@ -1,28 +1,29 @@
+import sys
+
+input = sys.stdin.readline
+
 n = int(input())
-arr = list(map(int, input().split(' ')))
+arr = list(map(int, input().split()))
 arr.sort()
 
-left = 0
-right = n-1
+min_abs = abs(arr[n - 1] + arr[0])
+max_idx = n - 1
+min_idx = 0
 
-answer = abs(arr[left] + arr[right])
-final = [arr[left], arr[right]]
-
+left, right = 0, n - 1
 
 while left < right:
-    left_val = arr[left]
-    right_val = arr[right]
+    gap = arr[right] + arr[left]
+    if abs(gap) < min_abs:
+        min_abs = abs(gap)
+        max_idx = right
+        min_idx = left
 
-    sum = left_val + right_val
-  
-    if abs(sum) < answer:
-        answer = abs(sum)
-        final = [left_val, right_val]
-        if answer == 0:
-          break
-    if sum < 0:
+    if gap > 0:
+        right -= 1
+    elif gap < 0:
         left += 1
     else:
-        right -= 1
+        break
 
-print(final[0], final[1])
+print(arr[min_idx], arr[max_idx])
