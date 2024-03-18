@@ -41,9 +41,9 @@ def robotCHHHIIIKINNGG(first_row, first_col, first_dir):
                 break
 
         if nearby_dirty:
-            for _ in range(1, 5):
-                cur_dir = (cur_dir + 3) % 4
-                dr, dc = direction[cur_dir]
+            for i in range(1, 5):
+                next_dir = (cur_dir - i) % 4
+                dr, dc = direction[next_dir]
                 if (
                     0 <= cur_row + dr < n
                     and 0 <= cur_col + dc < m
@@ -51,6 +51,7 @@ def robotCHHHIIIKINNGG(first_row, first_col, first_dir):
                 ):
                     cur_row += dr
                     cur_col += dc
+                    cur_dir = next_dir
                     break
     print(clean_count)
 
