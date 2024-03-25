@@ -1,7 +1,7 @@
 import sys
 
 input = sys.stdin.readline
-INF = sys.maxsize
+INF = 1e9
 
 cities_count, road_count = map(int, input().split())
 
