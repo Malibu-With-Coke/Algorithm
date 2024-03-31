@@ -1,34 +1,36 @@
 import sys
 
 input = sys.stdin.readline
-
-n, m = map(int, input().split())
-
-ways = {i: [] for i in range(n + 1)}
-for _ in range(m):
-    a, b, cost = map(int, input().split())
-    ways[a].append((b, cost))
-    ways[b].append((a, cost))
-
-from collections import deque
 import heapq
 
-distance = [10e9] * (n + 1)
+n, m = map(int, sys.stdin.readline().rstrip().split())
+INF = sys.maxsize
+nodes = [[] for _ in range(n + 1)]
+for _ in range(m):
+    a, b, c = map(int, sys.stdin.readline().rstrip().split())
+    nodes[a].append([b, c])
+    nodes[b].append([a, c])
 
-que = []
-heapq.heappush(que, (1, 0))
-distance[1] = 0
 
-while que:
-    from_here, cur_cost = heapq.heappop(que)
-    if distance[from_here] < cur_cost:
-        continue
+def Dijkstra(start):
+    distances = [INF for _ in range(n + 1)]
+    distances[start] = 0
+    pq = []
+    heapq.heappush(pq, [0, start])
 
-    for to_there, add_cost in ways[from_here]:
-        next_cost = cur_cost + add_cost
+    while pq:
+        cur_cost, cur_node = heapq.heappop(pq)
 
-        if next_cost < distance[to_there]:
-            distance[to_there] = next_cost
-            heapq.heappush(que, (to_there, next_cost))
+        if distances[cur_node] < cur_cost:
+            continue
 
-print(distance[n])
+        for next_node, next_cost in nodes[cur_node]:
+            if distances[next_node] > next_cost + cur_cost:
+                distances[next_node] = next_cost + cur_cost
+                heapq.heappush(pq, [next_cost + cur_cost, next_node])
+
+    return distances
+
+
+distances = Dijkstra(1)
+print(distances[n])
